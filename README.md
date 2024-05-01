@@ -33,37 +33,38 @@ Autoflex est un système de gestion de location de voitures conçu pour offrir u
 
 Voici un aperçu des fonctions principales du système Autoflex, avec une explication de leur rôle et de leur enchaînement.
 
-`get_db_connection()`
+### `get_db_connection()`
 - Description : Établit la connexion à la base de données MySQL. Gère les exceptions liées à la connexion et interrompt le programme si la connexion échoue.
 - Utilisation : Appelée au démarrage de l'application pour établir la connexion initiale.
-`register_user(db)`
+
+### `register_user(db)`
 - Description : Permet à un nouvel utilisateur de s'inscrire. Demande à l'utilisateur de saisir ses informations personnelles, vérifie la validité des données, et insère les informations dans la base de données.
 - Utilisation : Appelée lorsque l'utilisateur sélectionne l'option d'enregistrement.
-`login_user(db)`
+### `login_user(db)`
 - Description : Gère le processus de connexion pour les utilisateurs enregistrés. Vérifie les identifiants fournis contre ceux enregistrés dans la base de données.
 - Utilisation : Appelée lorsque l'utilisateur sélectionne l'option de connexion.
-`rent_a_car(db, user)`
+### `rent_a_car(db, user)`
 - Description : Permet à l'utilisateur de louer une voiture disponible. Affiche les voitures disponibles et gère la création d'un nouveau contrat de location.
 - Utilisation : Appelée après la connexion de l'utilisateur, lorsqu'il choisit de louer une voiture.
-`rental_stats(db)`
+### `rental_stats(db)`
 - Description : Affiche les statistiques de location, permettant à l'utilisateur de voir les données par année ou pour toutes les années.
 - Utilisation : Accessible après la connexion, pour les utilisateurs souhaitant voir les statistiques de location.
-`car_stats(db)`
+###  `car_stats(db)`
 - Description : Fournit des statistiques détaillées sur les voitures, incluant les revenus générés et le nombre de fois que chaque voiture a été louée.
 - Utilisation : Appelée pour afficher les statistiques détaillées des voitures.
-`brand_stats(db)`
+### `brand_stats(db)`
 - Description : Présente des statistiques sur les marques de voitures, telles que le nombre total de voitures, de locations, et les revenus générés par marque.
 - Utilisation : Appelée pour consulter les statistiques par marque de voiture.
-`company_stats(db)`
+### `company_stats(db)`
 - Description : Affiche des informations sur les entreprises, comme le nombre d'employés et les activités de location liées.
 - Utilisation : Accessible aux utilisateurs connectés, surtout utile pour les responsables d'entreprise.
-`user_info(db, user)`
+### `user_info(db, user)`
 - Description : Affiche les informations de l'utilisateur et permet la mise à jour ou la suppression du compte utilisateur.
 - Utilisation : Accessible après la connexion, permettant à l'utilisateur de gérer son compte.
-`update_user_info(db, user)`
+### `update_user_info(db, user)`
 - Description : Permet à l'utilisateur de mettre à jour ses informations personnelles.
 - Utilisation : Appelée depuis user_info lorsqu'un utilisateur souhaite modifier ses informations.
-`delete_user(db, user)`
+### `delete_user(db, user)`
 - Description : Permet à l'utilisateur de supprimer son compte. Implémente des contrôles pour empêcher la suppression si des contraintes sont en place.
 - Utilisation : Appelée depuis user_info pour supprimer un compte utilisateur.
 ## Flow Map
