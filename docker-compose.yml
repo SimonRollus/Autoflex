@@ -1,14 +1,36 @@
 version: '3.7'
 
 services:
+  pythonapp:
+    build: /client/.
+    ports:
+      - "4000:80"
+    depends_on:
+      - mysql
+    environment:
+      - HOST=mysql
+      - USER=admin
+      - PASSWORD=password
+      - DATABASE=northwind
+    stdin_open: true
+    tty: true
+
   mysql:
     image: mysql:latest
     ports: 
-      - 3306:3306
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=northwind
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password 
     volumes:
-      - "./data.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./database/data.sql:/docker-entrypoint-initdb.d/1.sql"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  
