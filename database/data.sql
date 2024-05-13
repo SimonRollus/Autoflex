@@ -25,7 +25,7 @@ CREATE TABLE PrivateIndividual (
 CREATE TABLE Company (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(32) NOT NULL,
-    sector VARCHAR(32),
+    sector VARCHAR(32) NOT NULL,
     `address` VARCHAR(128) NOT NULL
 );
 
