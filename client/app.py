@@ -290,7 +290,10 @@ def rent_a_car(db, user):
 
         console.print(table)
 
-        car_id = console.input("Enter the ID of the car you want to rent: ")
+        car_id = console.input("Enter the ID of the car you want to rent:  (Enter 'exit' to go back) ")
+
+        if car_id.lower() == "exit":
+            return
 
         mycursor.execute("SELECT * FROM carStats WHERE id = %s", (car_id,))
         car = mycursor.fetchone()
@@ -316,10 +319,14 @@ def rent_a_car(db, user):
                 break
 
     try:
+        mycursor.execute("START TRANSACTION")
         mycursor.execute("INSERT INTO RentalContract (carId, userId, startDate, endDate) VALUES (%s, %s, %s, %s)", (car_id, user[0], startDate, endDate))
         console.print("Car rented successfully. 🎉", style="bold green")
+        mycursor.execute("COMMIT")
+        return
 
     except Exception as e:
+        mycursor.execute("ROLLBACK")
         console.print("An error occurred while renting the car. Please try again.", style="bold red")
         console.print(str(e))
 
@@ -349,7 +356,7 @@ def rental_stats(db):
     table.add_column("Total revenue")
 
     for rental in rentals:
-        table.add_row(str(rental[0]), str(rental[1]), str(rental[2]), str(rental[3]), str(rental[4]))
+        table.add_row(str(rental[0] is None if "" else rental[0]), str(rental[1] is None if "" else rental[1]), str(rental[2]) , str(rental[3]) + "km", str(rental[4]) + "€")
 
     console.print(table)
     console.input("Press any key to continue...")
@@ -528,8 +535,13 @@ def update_user_info(db, user):
     print("New phone number: ", new_phone)
 
     try:
+
+        mycursor.execute("START TRANSACTION")
+
         mycursor.execute("UPDATE `User` SET firstName = %s, LastName = %s, phoneNumber = %s WHERE id = %s", (new_lastname, new_firstname, new_phone, user[0]))
         print("User information updated successfully.")
+
+        mycursor.execute("COMMIT")
 
         mycursor.execute("SELECT * FROM `User` WHERE id = %s", (user[0],))
 
@@ -538,6 +550,7 @@ def update_user_info(db, user):
         return user
     
     except Exception as e:
+        mycursor.execute("ROLLBACK")
         console.print("An error occurred while updating the user information. Please try again.", style="bold red")
         print(e)
     finally:
@@ -552,19 +565,23 @@ def delete_user(db, user):
     print("Delete account")
     print("--------------------")
 
-    print("Are you sure you want to delete your account? (yes/no)")
-    choice = input()
+    while True:
+        print("Are you sure you want to delete your account? (yes/no)")
+        choice = input()
 
-    if choice.lower() == "yes":
-        try:
-            mycursor.execute("DELETE FROM `User` WHERE id = %s", (user[0],))
-            print("User deleted successfully.")
+        if choice.lower() == "yes":
+            try:
+                mycursor.execute("START TRANSACTION")
+                mycursor.execute("DELETE FROM `User` WHERE id = %s", (user[0],))
+                print("User deleted successfully.")
+                mycursor.execute("COMMIT")
+                return
+            except Exception as e:
+                mycursor.execute("ROLLBACK")
+                console.print("An error occurred while deleting the user. Please try again.", style="bold red")
+                print(e)
+        elif choice.lower() == "no":
             return
-        except Exception as e:
-            console.print("An error occurred while deleting the user. Please try again.", style="bold red")
-            print(e)
-    else:
-        return
 
 
 if __name__ == "__main__":

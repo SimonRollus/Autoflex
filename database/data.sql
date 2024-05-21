@@ -67,9 +67,9 @@ CREATE TABLE RentalContract (
 
 INSERT INTO `User` (firstName, lastName, email, `password`, phoneNumber) VALUES ('Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown');
 
-INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 1', 'Sector 1', '`address`e 1');
-INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 2', 'Sector 2', '`address`e 2');
-INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 3', 'Sector 3', '`address`e 3');
+INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 1', 'Sector 1', 'addresse 1');
+INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 2', 'Sector 2', 'addresse 2');
+INSERT INTO Company (`name`, sector, `address`) VALUES ('Company 3', 'Sector 3', 'addresse 3');
 
 INSERT INTO `User` (firstName, lastName, email, `password`, phoneNumber) VALUES ('John', 'Doe', 'email1@gmail.com', '$2b$12$PXEbl65kQaeeMQlCBBs0X.hsRMpujm2/Sv5iXtab7i/QmpleP.uAa', '1234567890');
 INSERT INTO `User` (firstName, lastName, email, `password`, phoneNumber) VALUES ('Jane', 'Doe', 'email2@gmail.com', '$2b$12$PXEbl65kQaeeMQlCBBs0X.hsRMpujm2/Sv5iXtab7i/QmpleP.uAa', '1234567890');
